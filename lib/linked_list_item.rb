@@ -19,8 +19,25 @@ class LinkedListItem
     end
   end
 
-  def <=> other
-    self.payload.to_s <=> other.payload.to_s
+  def ===(other)
+    self.eql?(other)
+  end
+
+  def <=>(other)
+    comparison = self.payload <=> other.payload
+    if comparison == nil
+      if self.payload.class == Symbol && other.payload.class == String
+        comparison = 1
+      elsif self.payload.class == String && other.payload.class == Symbol
+        comparison = -1
+      end
+      if self.payload.class == Fixnum && other.payload.class == String
+        comparison = -1
+      elsif self.payload.class == String && other.payload.class == Fixnum
+        comparison = 1
+      end
+    end
+    comparison
   end
 
 end
