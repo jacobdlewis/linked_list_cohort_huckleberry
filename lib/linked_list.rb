@@ -1,10 +1,19 @@
 class LinkedList
   attr_reader :size, :first_item
 
-  def initialize
+  def initialize(*starter)
     @to_s_representation
     @first_item
     @size = 0
+    @starter = starter
+    if starter.length > 0
+      starter_length = starter.length
+      seed_counter = 0
+      while seed_counter < starter_length
+        self.push(starter[seed_counter])
+        seed_counter += 1
+      end
+    end
   end
 
   def push(ll_item)
@@ -66,5 +75,6 @@ class LinkedList
       return @to_s_representation
     end
   end
+
 
 end
