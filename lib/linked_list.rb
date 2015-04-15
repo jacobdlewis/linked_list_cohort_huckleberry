@@ -2,7 +2,7 @@ class LinkedList
   attr_reader :size, :first_item
 
   def initialize
-    @to_s_representation = "| |"
+    @to_s_representation
     @first_item
     @size = 0
   end
@@ -22,10 +22,10 @@ class LinkedList
     end
     @size += 1
 
-    to_s_length = @to_s_representation.length
-    if to_s_length == 3
-      @to_s_representation[to_s_length - 1] = "#{ll_item} |"
+    if @to_s_representation.nil?
+      @to_s_representation = "| #{ll_item} |"
     else
+      to_s_length = @to_s_representation.length
       @to_s_representation = @to_s_representation.slice(0, to_s_length - 2)
       @to_s_representation += ", #{ll_item} |"
     end
@@ -60,7 +60,11 @@ class LinkedList
   end
 
   def to_s
-    @to_s_representation
+    if @to_s_representation.nil?
+      return "| |"
+    else
+      return @to_s_representation
+    end
   end
 
 end
