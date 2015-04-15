@@ -2,6 +2,7 @@ class LinkedList
   attr_reader :size, :first_item
 
   def initialize
+    @to_s_representation = "| |"
     @first_item
     @size = 0
   end
@@ -20,6 +21,14 @@ class LinkedList
       current.next_item = LinkedListItem.new(ll_item)
     end
     @size += 1
+
+    to_s_length = @to_s_representation.length
+    if to_s_length == 3
+      @to_s_representation[to_s_length - 1] = "#{ll_item} |"
+    else
+      @to_s_representation = @to_s_representation.slice(0, to_s_length - 2)
+      @to_s_representation += ", #{ll_item} |"
+    end
   end
 
   def get(index)
@@ -48,6 +57,10 @@ class LinkedList
       current_item.payload
       end
     end
+  end
+
+  def to_s
+    @to_s_representation
   end
 
 end
