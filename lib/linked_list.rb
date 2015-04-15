@@ -1,9 +1,8 @@
 class LinkedList
-  attr_reader :size
+  attr_reader :size, :first_item
 
   def initialize
     @first_item
-    @item_count = 0
     @size = 0
   end
 
@@ -20,12 +19,11 @@ class LinkedList
       end
       current.next_item = LinkedListItem.new(ll_item)
     end
-    @item_count += 1
-    @size = @item_count
+    @size += 1
   end
 
   def get(index)
-    raise IndexError, "Index doesn't exist" if index > @item_count
+    raise IndexError, "Index doesn't exist" if index > @size
     raise IndexError, "Index can't be negative" if index < 0
     starting_point = @first_item
     index.times do
@@ -33,6 +31,23 @@ class LinkedList
       starting_point = next_item
     end
   starting_point.payload
+  end
+
+  def last
+    if @size == 0
+      return nil
+    else
+      current_item = @first_item
+      if current_item.last? == true
+        return current_item
+      else
+        while current_item.last? == false
+          next_item = current_item.next_item
+          current_item = next_item
+        end
+      current_item.payload
+      end
+    end
   end
 
 end
