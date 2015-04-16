@@ -115,5 +115,26 @@ class LinkedList
     item_to_update.payload = new_item
   end
 
+  def delete(index)
+    if index > @size
+      raise IndexError, "that index doesn't exist"
+    end
+    if index > 0
+      current_item = @first_item
+      index.times do
+        current_item = current_item.next_item
+      end
+      next_neighbor = current_item.next_item
+      pointer_to_update = @first_item
+      (index - 1).times do
+        pointer_to_update = pointer_to_update.next_item
+      end
+      pointer_to_update.next_item = next_neighbor
+    elsif index == 0
+      new_first = @first_item.next_item
+      @first_item = new_first
+    end
+    @size -= 1
+  end
 
 end
