@@ -18,7 +18,6 @@ if pay_length > 0
     counter += 1
   end
 end
-#ll.push(payloads)
 
 # Then, print it out
 #

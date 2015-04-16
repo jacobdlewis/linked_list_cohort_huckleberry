@@ -4,7 +4,6 @@ class LinkedList
   attr_reader :size, :first_item
 
   def initialize(*starter)
-    @to_s_representation
     @first_item
     @size = 0
     @starter = starter
@@ -49,14 +48,6 @@ class LinkedList
       current.next_item = LinkedListItem.new(ll_item)
     end
     @size = @size + 1
-
-    if @to_s_representation.nil?
-      @to_s_representation = "| #{ll_item} |"
-    else
-      to_s_length = @to_s_representation.length
-      @to_s_representation = @to_s_representation.slice(0, to_s_length - 2)
-      @to_s_representation += ", #{ll_item} |"
-    end
   end
 
   def get(index)
@@ -88,11 +79,40 @@ class LinkedList
   end
 
   def to_s
-    if @to_s_representation.nil?
-      return "| |"
+    output = ""
+    if @first_item == nil
+      output = "| |"
     else
-      return @to_s_representation
+      current_item = @first_item
+      output = "| "
+      size.times do
+        output << current_item.payload
+        output << ", " if current_item.last? == false
+        current_item = current_item.next_item
+      end
+      output << " |"
     end
+    output
+  end
+
+  def [](arg)
+    current_item = @first_item
+    if arg==0
+      return first_item.payload
+    elsif arg > 0
+      arg.times do
+        current_item = current_item.next_item
+      end
+      return current_item.payload
+    end
+  end
+
+  def []=(index, new_item)
+    item_to_update = @first_item
+    index.times do
+      item_to_update = item_to_update.next_item
+    end
+    item_to_update.payload = new_item
   end
 
 
