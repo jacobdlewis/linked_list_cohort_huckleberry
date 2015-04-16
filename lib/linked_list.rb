@@ -1,3 +1,5 @@
+require_relative 'linked_list_item'
+
 class LinkedList
   attr_reader :size, :first_item
 
@@ -16,6 +18,23 @@ class LinkedList
     end
   end
 
+  def print_out
+    if @first_item == nil
+      print("* -> nil")
+    else
+      output = "* -> "
+      current = @first_item
+      while current.next_item.nil? == false
+        output << current.payload
+        output << " -> "
+        current = current.next_item
+        current
+      end
+      output << "nil"
+      print output
+    end
+  end
+
   def push(ll_item)
     if @first_item.nil?
       @first_item = LinkedListItem.new(ll_item)
@@ -29,7 +48,7 @@ class LinkedList
       end
       current.next_item = LinkedListItem.new(ll_item)
     end
-    @size += 1
+    @size = @size + 1
 
     if @to_s_representation.nil?
       @to_s_representation = "| #{ll_item} |"
