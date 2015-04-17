@@ -6,21 +6,12 @@ class LinkedList
   def initialize(*starter)
     @first_item
     @size = 0
-    @starter = starter
-    if starter.length > 0
-      starter_length = starter.length
-      seed_counter = 0
-      while seed_counter < starter_length
-        self.push(starter[seed_counter])
-        seed_counter += 1
-      end
-    end
+    starter.each { |x| self.push x } if starter
   end
 
   def print_out
-    if @first_item == nil
-      print("* -> nil")
-    else
+      print("* -> nil") if @first_item.nil?
+    if @first_item
       output = "* -> "
       current = @first_item
       while current.next_item.nil? == false
@@ -136,5 +127,7 @@ class LinkedList
     end
     @size -= 1
   end
+
+
 
 end
