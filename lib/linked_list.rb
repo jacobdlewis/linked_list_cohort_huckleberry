@@ -28,15 +28,9 @@ class LinkedList
   def push(ll_item)
     if @first_item.nil?
       @first_item = LinkedListItem.new(ll_item)
-    elsif @first_item.nil? == false && @first_item.next_item.nil?
-      @first_item.next_item = LinkedListItem.new(ll_item)
     else
-      current = @first_item
-      while current.next_item.nil? == false
-        current = current.next_item
-        current
-      end
-      current.next_item = LinkedListItem.new(ll_item)
+      last_item = getListItemAtIndex(size-1)
+      last_item.next_item = LinkedListItem.new(ll_item)
     end
     @size = @size + 1
   end
@@ -44,36 +38,21 @@ class LinkedList
   def get(index)
     raise IndexError, "Index doesn't exist" if index > @size
     raise IndexError, "Index can't be negative" if index < 0
-    starting_point = @first_item
-    index.times do
-      next_item = starting_point.next_item
-      starting_point = next_item
-    end
-  starting_point.payload
+    item_asked_for = getListItemAtIndex(index)
+    return item_asked_for.payload
   end
 
   def last
     if @size == 0
       return nil
     else
-      current_item = @first_item
-      if current_item.last? == true
-        return current_item
-      else
-        while current_item.last? == false
-          next_item = current_item.next_item
-          current_item = next_item
-        end
-      current_item.payload
-      end
+      last_item = getListItemAtIndex(size - 1)
+      last_item.payload
     end
   end
 
   def to_s
-    output = ""
-    if @first_item == nil
-      output = "| |"
-    else
+    if @first_item
       current_item = @first_item
       output = "| "
       size.times do
@@ -82,27 +61,23 @@ class LinkedList
         current_item = current_item.next_item
       end
       output << " |"
+      return output
+    else
+      return "| |"
     end
-    output
   end
 
-  def [](arg)
-    current_item = @first_item
-    if arg==0
+  def [](index)
+    if index==0
       return first_item.payload
-    elsif arg > 0
-      arg.times do
-        current_item = current_item.next_item
-      end
-      return current_item.payload
+    elsif index > 0
+      list_item_to_return = getListItemAtIndex(index)
+      return list_item_to_return.payload
     end
   end
 
   def []=(index, new_item)
-    item_to_update = @first_item
-    index.times do
-      item_to_update = item_to_update.next_item
-    end
+    item_to_update = getListItemAtIndex(index)
     item_to_update.payload = new_item
   end
 
@@ -111,23 +86,18 @@ class LinkedList
       raise IndexError, "that index doesn't exist"
     end
     if index > 0
-      current_item = @first_item
-      index.times do
-        current_item = current_item.next_item
-      end
-      next_neighbor = current_item.next_item
-      pointer_to_update = @first_item
-      (index - 1).times do
-        pointer_to_update = pointer_to_update.next_item
-      end
-      pointer_to_update.next_item = next_neighbor
+      deleted_item_reference = getListItemAtIndex(index - 1)
+      deleted_item_reference.next_item = getListItemAtIndex(index + 1)
     elsif index == 0
-      new_first = @first_item.next_item
-      @first_item = new_first
+      @first_item = @first_item.next_item
     end
     @size -= 1
   end
 
-
+  def getListItemAtIndex(index)
+    current_item = @first_item
+    index.times { current_item = current_item.next_item }
+    return current_item
+  end
 
 end
