@@ -9,7 +9,7 @@ class LinkedListItem
 
   def next_item=(next_item)
       @next_item = next_item
-      raise ArgumentError if next_item == self
+      raise ArgumentError if next_item === self
   end
 
   def last?

@@ -100,4 +100,34 @@ class LinkedList
     return current_item
   end
 
+  def index(data)
+    counter = 0
+    item_to_check = @first_item
+    while counter < @size
+      if item_to_check.payload == data
+        return counter
+      elsif counter == @size
+        return nil
+      else
+        counter += 1
+        item_to_check = item_to_check.next_item
+      end
+    end
+    # index = 0
+    # item_to_check = @first_item
+    # if @size == 0
+    #   return nil
+    # elsif item_to_check.payload == data
+    #   return 0
+    # elsif @size > 0
+    #   while index < size
+    #     return index if item_to_check.payload == data
+    #     index += 1
+    #     item_to_check = item_to_check.next_item
+    #   end
+    # else
+    #   return nil
+    # end
+  end
+
 end
