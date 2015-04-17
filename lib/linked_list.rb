@@ -113,21 +113,19 @@ class LinkedList
         item_to_check = item_to_check.next_item
       end
     end
-    # index = 0
-    # item_to_check = @first_item
-    # if @size == 0
-    #   return nil
-    # elsif item_to_check.payload == data
-    #   return 0
-    # elsif @size > 0
-    #   while index < size
-    #     return index if item_to_check.payload == data
-    #     index += 1
-    #     item_to_check = item_to_check.next_item
-    #   end
-    # else
-    #   return nil
-    # end
+  end
+
+  def sorted?
+    if @size < 2
+      return true
+    else
+      item_to_check = @first_item
+      if item_to_check > item_to_check.next_item
+        return false
+      else
+        return true
+      end
+    end
   end
 
 end
