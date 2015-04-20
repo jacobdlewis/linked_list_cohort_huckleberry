@@ -82,14 +82,13 @@ class LinkedList
   end
 
   def delete(index)
-    if index > @size
-      raise IndexError, "that index doesn't exist"
-    end
-    if index > 0
+    raise IndexError, "Specified index doesn't exist" if index > @size
+    raise IndexError, "Method doesn't accept negative indices" if index < 0
+    if index == 0
+      @first_item = @first_item.next_item
+    elsif index > 0
       deleted_item_reference = getListItemAtIndex(index - 1)
       deleted_item_reference.next_item = getListItemAtIndex(index + 1)
-    elsif index == 0
-      @first_item = @first_item.next_item
     end
     @size -= 1
   end
