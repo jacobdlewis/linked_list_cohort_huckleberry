@@ -68,12 +68,7 @@ class LinkedList
   end
 
   def [](index)
-    if index==0
-      return first_item.payload
-    elsif index > 0
-      list_item_to_return = getListItemAtIndex(index)
-      return list_item_to_return.payload
-    end
+    get(index)
   end
 
   def []=(index, new_item)
