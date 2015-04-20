@@ -128,4 +128,16 @@ class LinkedList
     end
   end
 
+  def sort!
+    holder = 0
+    if size > 1
+      if @first_item > @first_item.next_item
+        holder = @first_item
+        @first_item = @first_item.next_item
+        @first_item.next_item = holder
+        @first_item.next_item.next_item = nil
+      end
+    end
+  end
+
 end
